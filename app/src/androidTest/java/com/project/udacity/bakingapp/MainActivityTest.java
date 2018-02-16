@@ -1,6 +1,5 @@
 package com.project.udacity.bakingapp;
 
-import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -13,8 +12,6 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 
 /**
@@ -26,8 +23,7 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void clickGridViewItem_OpensOrderActivity() {
-
+    public void clickonlist() {
         onData(anything()).inAdapterView(withId(R.id.recyclerView)).atPosition(1).perform(click());
         // Checks that the OrderActivity opens with the correct tea name displayed
         onView(withId(R.id.master_list_fragment_container)).check(matches(isDisplayed()));
