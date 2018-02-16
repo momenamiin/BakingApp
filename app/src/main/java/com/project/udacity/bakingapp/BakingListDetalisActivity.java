@@ -22,6 +22,7 @@ public class BakingListDetalisActivity extends AppCompatActivity {
     int recepposition ;
     int StepPosition ;
     int stepsNum;
+    String Stepthumbnail ;
     BakingListJSON bakingListJSON ;
 
     @BindView(R.id.NextStep) Button NextStepButton ;
@@ -38,12 +39,14 @@ public class BakingListDetalisActivity extends AppCompatActivity {
             StepPosition = intent.getIntExtra("position" , 0);
             bakingListJSON = new BakingListJSON();
             mVieosUrls = bakingListJSON.getVideoUrl(JsonRespons , recepposition , StepPosition);
+            Stepthumbnail = bakingListJSON.getStepthumbnailURL(JsonRespons , recepposition , StepPosition);
             mStepDescribtion = bakingListJSON.getLongDescription(JsonRespons , recepposition , StepPosition);
             stepsNum = bakingListJSON.getStepsNum(JsonRespons , recepposition) ;
         }
         final android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         DetalisFragment detalisFragment = new DetalisFragment();
         detalisFragment.setVideoUrl(mVieosUrls);
+        detalisFragment.setStepthumbnailURL(Stepthumbnail);
         detalisFragment.setmDescription(mStepDescribtion);
         fragmentManager.beginTransaction()
                 .add(R.id.Detalis_Contaner , detalisFragment)
@@ -61,8 +64,10 @@ public class BakingListDetalisActivity extends AppCompatActivity {
                         DetalisFragment detalisFragmentnew = new DetalisFragment();
                         StepPosition = StepPosition + 1;
                         mVieosUrls = bakingListJSON.getVideoUrl(JsonRespons, recepposition, StepPosition);
+                        Stepthumbnail = bakingListJSON.getStepthumbnailURL(JsonRespons , recepposition , StepPosition);
                         mStepDescribtion = bakingListJSON.getLongDescription(JsonRespons, recepposition, StepPosition);
                         detalisFragmentnew.setVideoUrl(mVieosUrls);
+                        detalisFragmentnew.setStepthumbnailURL(Stepthumbnail);
                         detalisFragmentnew.setmDescription(mStepDescribtion);
                         fragmentManager.beginTransaction()
                                 .replace(R.id.Detalis_Contaner, detalisFragmentnew)
@@ -79,18 +84,17 @@ public class BakingListDetalisActivity extends AppCompatActivity {
                         Toast.makeText(view.getContext(), "this is the first step ", Toast.LENGTH_SHORT).show();
                     } else {
                         DetalisFragment detalisFragmentnew = new DetalisFragment();
-
                         StepPosition = StepPosition - 1;
                         mVieosUrls = bakingListJSON.getVideoUrl(JsonRespons, recepposition, StepPosition);
+                        Stepthumbnail = bakingListJSON.getStepthumbnailURL(JsonRespons , recepposition , StepPosition);
                         mStepDescribtion = bakingListJSON.getLongDescription(JsonRespons, recepposition, StepPosition);
                         detalisFragmentnew.setVideoUrl(mVieosUrls);
                         detalisFragmentnew.setmDescription(mStepDescribtion);
+                        detalisFragmentnew.setStepthumbnailURL(Stepthumbnail);
                         fragmentManager.beginTransaction()
                                 .replace(R.id.Detalis_Contaner, detalisFragmentnew)
                                 .commit();
-
                     }
-
                 }
             });
         }

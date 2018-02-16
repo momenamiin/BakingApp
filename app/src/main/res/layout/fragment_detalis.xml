@@ -18,5 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stepLongdescription"/>
+    <ImageView
+        android:id="@+id/Stepthumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

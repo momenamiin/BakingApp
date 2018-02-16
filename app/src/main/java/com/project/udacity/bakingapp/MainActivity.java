@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
     @BindView(R.id.recyclerView)  RecyclerView mRecyclerView ;
     @BindView(R.id.progress_bar)  ProgressBar mprogressBar ;
     @BindView(R.id.error_text)  TextView merrorMassage ;
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -79,10 +79,11 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
                     TheListJsonResponse = response.body().string();
                     BakingListJSON bakingListJSON = new BakingListJSON();
                     final HashMap<String, String> map = bakingListJSON.getBakinglist(TheListJsonResponse);
+                    final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            madapter.setBakingList(map);
+                            madapter.setBakingList(map ,mImagesUrls );
                             mprogressBar.setVisibility(View.INVISIBLE);
                             mRecyclerView.setVisibility(View.VISIBLE);
                         }
@@ -93,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
             TheListJsonResponse = savedInstanceState.getString("TheListJsonResponse");
             BakingListJSON bakingListJSON = new BakingListJSON();
             final HashMap<String, String> map = bakingListJSON.getBakinglist(TheListJsonResponse);
-            madapter.setBakingList(map);
+            final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
+            madapter.setBakingList(map , mImagesUrls);
             mprogressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }

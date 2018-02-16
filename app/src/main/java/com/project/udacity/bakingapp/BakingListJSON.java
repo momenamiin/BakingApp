@@ -62,7 +62,21 @@ public class BakingListJSON {
         }
         return Description;
     }
-
+    public String getStepthumbnailURL (String Json , int receppostion , int StepPosision){
+        JSONArray jsonArray = null;
+        String thumbnailURL ;
+        try {
+            jsonArray = new JSONArray(Json);
+            JSONObject jsonObject = jsonArray.getJSONObject(receppostion);
+            JSONArray stepsArray = jsonObject.getJSONArray("steps");
+            JSONObject jsonObject1 = stepsArray.getJSONObject(StepPosision);
+            thumbnailURL = jsonObject1.getString("thumbnailURL");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            thumbnailURL = null;
+        }
+        return thumbnailURL;
+    }
     public String getVideoUrl (String Json , int receppostion , int StepPosision){
         Log.v("Memo" , "Henaa");
         JSONArray jsonArray = null;
@@ -148,6 +162,25 @@ public class BakingListJSON {
             ListMap = null;
         }
         return ListMap;
+    }
+
+    public ArrayList<String> getImageUrls(String Json){
+        ArrayList<String> ImageUrls ;
+        JSONArray jsonArray ;
+        try {
+            jsonArray = new JSONArray(Json);
+            int lenght  = jsonArray.length();
+            ImageUrls = new ArrayList<>(lenght);
+            for (int i = 0 ; i < lenght ; i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String ImageUrl = jsonObject.getString("image");
+                ImageUrls.add(ImageUrl);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ImageUrls = null;
+        }
+        return ImageUrls;
     }
 
 }

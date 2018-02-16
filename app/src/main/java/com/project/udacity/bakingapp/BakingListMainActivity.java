@@ -19,6 +19,7 @@ public class BakingListMainActivity extends AppCompatActivity implements MasterL
     String recepename ;
     String JsonRespons ;
     int recepposition ;
+    String Stepthumbnail ;
     boolean mTwoPane ;
     int StepPosition = 0 ;
     BakingListJSON bakingListJSON ;
@@ -42,12 +43,11 @@ public class BakingListMainActivity extends AppCompatActivity implements MasterL
             bakingListJSON = new BakingListJSON();
             mSteps = bakingListJSON.getStepsList(JsonRespons , recepposition);
             mIngrediences = bakingListJSON.getIngerdiance(JsonRespons , recepposition);
+            Stepthumbnail = bakingListJSON.getStepthumbnailURL(JsonRespons , recepposition , StepPosition);
             mVieosUrls = bakingListJSON.getVideoUrl(JsonRespons , recepposition , StepPosition);
             mStepDescribtion = bakingListJSON.getLongDescription(JsonRespons , recepposition , StepPosition);
             recepename = bakingListJSON.getrecepeName(JsonRespons , recepposition) ;
         }
-
-
 
         if (findViewById(R.id.twopanDevider) != null){
             mTwoPane = true;
@@ -65,6 +65,7 @@ public class BakingListMainActivity extends AppCompatActivity implements MasterL
                 detalisFragment = new DetalisFragment();
                 detalisFragment.setVideoUrl(mVieosUrls);
                 detalisFragment.setmDescription(mStepDescribtion);
+                detalisFragment.setStepthumbnailURL(Stepthumbnail);
                 fragmentManager.beginTransaction()
                         .add(R.id.Detalis_Contaner, detalisFragment)
                         .commit();
@@ -91,9 +92,10 @@ public class BakingListMainActivity extends AppCompatActivity implements MasterL
             StepPosition = position ;
             mVieosUrls = bakingListJSON.getVideoUrl(JsonRespons , recepposition , StepPosition);
             mStepDescribtion = bakingListJSON.getLongDescription(JsonRespons , recepposition , StepPosition);
-            detalisFragment.setVideoUrl(mVieosUrls);
-            detalisFragment.setmDescription(mStepDescribtion);
+            Stepthumbnail = bakingListJSON.getStepthumbnailURL(JsonRespons , recepposition , StepPosition);
+            detalisFragmentnew.setVideoUrl(mVieosUrls);
             detalisFragmentnew.setmDescription(mStepDescribtion);
+            detalisFragmentnew.setStepthumbnailURL(Stepthumbnail);
             fragmentManager.beginTransaction()
                     .replace(R.id.Detalis_Contaner, detalisFragmentnew)
                     .commit();
