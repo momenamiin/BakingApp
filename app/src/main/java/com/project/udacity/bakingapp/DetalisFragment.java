@@ -117,7 +117,9 @@ public class DetalisFragment extends Fragment {
         outState.putString("mVideoUrl" , mVideoUrl);
         outState.putString("mDescription" , mDescription);
         outState.putString("StepthumbnailURL", StepthumbnailURL);
-        outState.putLong("mExoPlayerPosition" , mExoPlayer.getCurrentPosition());
+        if (mExoPlayer != null) {
+            outState.putLong("mExoPlayerPosition", mExoPlayer.getCurrentPosition());
+        }
     }
 
     void setVideoUrl (String VideoUrl ){
