@@ -78,12 +78,14 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
                 public void onResponse(Call call, Response response) throws IOException {
                     TheListJsonResponse = response.body().string();
                     BakingListJSON bakingListJSON = new BakingListJSON();
-                    final HashMap<String, String> map = bakingListJSON.getBakinglist(TheListJsonResponse);
+                    final ArrayList<String> ListNames = bakingListJSON.getBakinglistnames(TheListJsonResponse);
+                    final ArrayList<String> ListSeving =bakingListJSON.getBakinglistServing(TheListJsonResponse);
+
                     final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            madapter.setBakingList(map ,mImagesUrls );
+                            madapter.setBakingList(ListNames , ListSeving ,mImagesUrls );
                             mprogressBar.setVisibility(View.INVISIBLE);
                             mRecyclerView.setVisibility(View.VISIBLE);
                         }
@@ -93,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
         }else {
             TheListJsonResponse = savedInstanceState.getString("TheListJsonResponse");
             BakingListJSON bakingListJSON = new BakingListJSON();
-            final HashMap<String, String> map = bakingListJSON.getBakinglist(TheListJsonResponse);
-            final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
-            madapter.setBakingList(map , mImagesUrls);
+            ArrayList<String> ListNames = bakingListJSON.getBakinglistnames(TheListJsonResponse);
+            ArrayList<String> ListSeving =bakingListJSON.getBakinglistServing(TheListJsonResponse);            final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
+            madapter.setBakingList(ListNames , ListSeving, mImagesUrls);
             mprogressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }

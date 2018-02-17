@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by momenamiin on 2/11/18.
@@ -142,20 +143,36 @@ public class BakingListJSON {
         }
         return steps;
     }
-
-
-    public HashMap<String , String> getBakinglist(String Json){
-        HashMap<String, String> ListMap ;
-        JSONArray jsonArray = null;
+    public ArrayList<String> getBakinglistServing(String Json){
+        ArrayList<String> ListMap ;
+        JSONArray jsonArray ;
         try {
             jsonArray = new JSONArray(Json);
             int lenght  = jsonArray.length();
-            ListMap = new HashMap<>(lenght);
+            ListMap = new ArrayList<>(lenght);
+            for (int i = 0 ; i < lenght ; i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String serving = jsonObject.getString("servings");
+                ListMap.add(serving);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ListMap = null;
+        }
+        return ListMap;
+    }
+
+    public ArrayList<String> getBakinglistnames(String Json){
+        ArrayList<String> ListMap ;
+        JSONArray jsonArray ;
+        try {
+            jsonArray = new JSONArray(Json);
+            int lenght  = jsonArray.length();
+            ListMap = new ArrayList<>(lenght);
             for (int i = 0 ; i < lenght ; i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
-                String serving = jsonObject.getString("servings");
-                ListMap.put(name , serving);
+                ListMap.add(name);
             }
         } catch (JSONException e) {
             e.printStackTrace();

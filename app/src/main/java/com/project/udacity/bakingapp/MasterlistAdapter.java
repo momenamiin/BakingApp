@@ -46,7 +46,7 @@ public class MasterlistAdapter extends RecyclerView.Adapter<MasterlistAdapter.Vi
         public final TextView mIdView;
         public ViewHolder(View view) {
             super(view);
-            mIdView = (TextView) view.findViewById(R.id.stepdescription);
+            mIdView =  view.findViewById(R.id.stepdescription);
             view.setOnClickListener(this);
         }
 

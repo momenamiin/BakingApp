@@ -22,8 +22,9 @@ import java.util.HashMap;
 
 public class BakinglistAdapter extends RecyclerView.Adapter<BakinglistAdapter.BakinglistAdapterViewHolder> {
 
-    private HashMap<String,String> mBakingList ;
     private ArrayList<String> mImageUrls ;
+    private ArrayList<String> mBakinglistNames ;
+    private ArrayList<String> mBakinglistServing ;
     private final BakinglistAdapterOnclickHandler mClickHandler ;
 
     public BakinglistAdapter(BakinglistAdapterOnclickHandler Clickhandler){
@@ -47,24 +48,25 @@ public class BakinglistAdapter extends RecyclerView.Adapter<BakinglistAdapter.Ba
 
     @Override
     public void onBindViewHolder(BakinglistAdapter.BakinglistAdapterViewHolder holder, int position) {
-        String Name = (String) mBakingList.keySet().toArray()[position];
+
+        String Name = mBakinglistNames.get(position);
         String ImageUrl = mImageUrls.get(position);
         if (ImageUrl.length() != 0){
             Picasso.with(context).load(ImageUrl).into(holder.imageView);
         }else {
             holder.imageView.setVisibility(View.GONE);
         }
-        String serving = mBakingList.get(Name);
+        String serving = mBakinglistServing.get(position);
         holder.nametextView.setText(Name);
         holder.servingtextView.setText("Serving : " + serving);
     }
 
     @Override
     public int getItemCount() {
-        if (mBakingList == null){
+        if (mBakinglistNames == null){
             return 0 ;
         }else{
-            return mBakingList.size();
+            return mBakinglistNames.size();
 
         }
     }
@@ -87,9 +89,10 @@ public class BakinglistAdapter extends RecyclerView.Adapter<BakinglistAdapter.Ba
         mClickHandler.onclick(adapterpostion);
         }
     }
-    public void setBakingList(HashMap<String , String> Bakinglist , ArrayList<String> ImageUrls){
+    public void setBakingList(ArrayList<String> BakinglistNames ,ArrayList<String> BakinglistServing, ArrayList<String> ImageUrls){
         mImageUrls = ImageUrls;
-        mBakingList = Bakinglist ;
+        mBakinglistNames = BakinglistNames ;
+        mBakinglistServing = BakinglistServing ;
         notifyDataSetChanged();
     }
 

@@ -30,7 +30,6 @@ public class BakingListDetalisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("Memo" , "AfterLayout");
         setContentView(R.layout.activity_baking_list_detalis);
         Intent intent = getIntent();
         if (intent != null){
@@ -44,13 +43,16 @@ public class BakingListDetalisActivity extends AppCompatActivity {
             stepsNum = bakingListJSON.getStepsNum(JsonRespons , recepposition) ;
         }
         final android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        DetalisFragment detalisFragment = new DetalisFragment();
-        detalisFragment.setVideoUrl(mVieosUrls);
-        detalisFragment.setStepthumbnailURL(Stepthumbnail);
-        detalisFragment.setmDescription(mStepDescribtion);
-        fragmentManager.beginTransaction()
-                .add(R.id.Detalis_Contaner , detalisFragment)
-                .commit();
+        if (savedInstanceState == null) {
+            DetalisFragment detalisFragment = new DetalisFragment();
+            detalisFragment.setVideoUrl(mVieosUrls);
+            detalisFragment.setStepthumbnailURL(Stepthumbnail);
+            detalisFragment.setmDescription(mStepDescribtion);
+            fragmentManager.beginTransaction()
+                    .add(R.id.Detalis_Contaner, detalisFragment)
+                    .commit();
+        }
+
         if (findViewById(R.id.NextStep) != null) {
             ButterKnife.bind(this);
             NextStepButton.setOnClickListener(new View.OnClickListener() {
