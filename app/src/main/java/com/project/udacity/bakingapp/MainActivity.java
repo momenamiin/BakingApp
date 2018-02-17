@@ -94,12 +94,16 @@ public class MainActivity extends AppCompatActivity implements BakinglistAdapter
             });
         }else {
             TheListJsonResponse = savedInstanceState.getString("TheListJsonResponse");
-            BakingListJSON bakingListJSON = new BakingListJSON();
-            ArrayList<String> ListNames = bakingListJSON.getBakinglistnames(TheListJsonResponse);
-            ArrayList<String> ListSeving =bakingListJSON.getBakinglistServing(TheListJsonResponse);            final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
-            madapter.setBakingList(ListNames , ListSeving, mImagesUrls);
-            mprogressBar.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
+            if (TheListJsonResponse != null){
+                BakingListJSON bakingListJSON = new BakingListJSON();
+                ArrayList<String> ListNames = bakingListJSON.getBakinglistnames(TheListJsonResponse);
+                ArrayList<String> ListSeving =bakingListJSON.getBakinglistServing(TheListJsonResponse);
+                final ArrayList<String> mImagesUrls = bakingListJSON.getImageUrls(TheListJsonResponse);
+                madapter.setBakingList(ListNames , ListSeving, mImagesUrls);
+                mprogressBar.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

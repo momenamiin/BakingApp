@@ -1,13 +1,18 @@
 package com.project.udacity.bakingapp;
 
+import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -31,6 +36,8 @@ public class BakingListDetalisActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baking_list_detalis);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if (intent != null){
             JsonRespons = intent.getStringExtra("json");
@@ -99,6 +106,20 @@ public class BakingListDetalisActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home :
+                Intent intent = new Intent(this , BakingListMainActivity.class);
+                intent.putExtra("Json" ,JsonRespons );
+                intent.putExtra("position" ,recepposition );
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

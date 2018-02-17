@@ -14,18 +14,17 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BakingListMainActivity" />
-        <activity android:name=".BakingListDetalisActivity" />
-
+        <activity android:name=".BakingListMainActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".BakingListDetalisActivity"
+            android:parentActivityName=".BakingListMainActivity"/>
         <receiver android:name=".BakingappWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/bakingapp_widget_provider_info" />

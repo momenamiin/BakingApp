@@ -33,6 +33,7 @@ public class DetalisFragment extends Fragment {
     private ImageView Stepthumbnai ;
     String StepthumbnailURL ;
     String mVideoUrl ;
+    boolean PlayWhenReady = true ;
     String mDescription ;
     long mExoPlayerPosition = C.TIME_UNSET;
 
@@ -54,6 +55,7 @@ public class DetalisFragment extends Fragment {
             mVideoUrl = savedInstanceState.getString("mVideoUrl");
             StepthumbnailURL = savedInstanceState.getString("StepthumbnailURL");
             mExoPlayerPosition = savedInstanceState.getLong("mExoPlayerPosition" , C.TIME_UNSET);
+            PlayWhenReady = savedInstanceState.getBoolean("PlayWhenReady");
         }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detalis, container, false);
@@ -71,7 +73,7 @@ public class DetalisFragment extends Fragment {
                     new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             if (mExoPlayerPosition != C.TIME_UNSET) mExoPlayer.seekTo(mExoPlayerPosition);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(PlayWhenReady);
             StepDescriptionTextView.setText(mDescription);
             if (StepthumbnailURL.length() != 0){
                 Picasso.with(getContext()).load(StepthumbnailURL).into(Stepthumbnai);
@@ -91,7 +93,7 @@ public class DetalisFragment extends Fragment {
                     new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             if (mExoPlayerPosition != C.TIME_UNSET) mExoPlayer.seekTo(mExoPlayerPosition);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(PlayWhenReady);
             return view;
         }
 
@@ -102,6 +104,7 @@ public class DetalisFragment extends Fragment {
         super.onPause();
         if (mExoPlayer != null){
             mExoPlayerPosition = mExoPlayer.getCurrentPosition();
+            PlayWhenReady = mExoPlayer.getPlayWhenReady();
             releasePlayer();
         }
     }
@@ -118,6 +121,7 @@ public class DetalisFragment extends Fragment {
         outState.putString("mDescription" , mDescription);
         outState.putString("StepthumbnailURL", StepthumbnailURL);
         outState.putLong("mExoPlayerPosition", mExoPlayerPosition);
+        outState.putBoolean("PlayWhenReady", PlayWhenReady);
     }
 
     void setVideoUrl (String VideoUrl ){
